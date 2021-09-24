@@ -5,6 +5,7 @@ import 'package:state_management/screens/movie_add_screen.dart';
 import 'package:state_management/widgets/wrapper_widget.dart';
 import '../screens/home_screen.dart';
 import '../screens/login_screen.dart';
+import '../mobx_state/movies_state.dart';
 
 void main() {
   runApp(
@@ -16,6 +17,7 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
+  final movieState = MoviesState();
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -26,8 +28,12 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: '/',
       routes: {
-        '/': (BuildContext context) => HomeScreen(),
-        '/add': (BuildContext context) => WrapperWidget(),
+        '/': (BuildContext context) => HomeScreen(
+              movieState: movieState,
+            ),
+        '/add': (BuildContext context) => WrapperWidget(
+              movieState: movieState,
+            ),
         '/login': (BuildContext context) => LoginScreen(),
       },
     );

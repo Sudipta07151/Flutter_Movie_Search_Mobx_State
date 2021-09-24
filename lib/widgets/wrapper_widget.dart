@@ -6,10 +6,11 @@ import '../widgets/spinner_widget.dart';
 import '../screens/movie_add_screen.dart';
 
 class WrapperWidget extends StatelessWidget {
+  final movieState;
+  WrapperWidget({required this.movieState});
+
   @override
   Widget build(BuildContext context) {
-    final movieState = MoviesState();
-
     return Observer(builder: (_) {
       if (movieState.loader == true) {
         print('VISIBLE LOADER..........');

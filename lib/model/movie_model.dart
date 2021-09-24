@@ -1,6 +1,11 @@
 class Movie {
   final String title;
   final String year;
-  final String genre;
-  Movie({required this.genre, required this.title, required this.year});
+  final String rating;
+  final String image;
+  Movie(
+      {required this.rating,
+      required this.title,
+      required this.year,
+      required this.image});
 }
