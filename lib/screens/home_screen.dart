@@ -3,6 +3,7 @@ import '../widgets/switch_widget.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import '../mobx_state/movies_state.dart';
 import '../screens/details_page.dart';
+import '../constants/constant.dart';
 
 class HomeScreen extends StatelessWidget {
   final MoviesState movieState;
@@ -122,17 +123,45 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ),
         ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            Navigator.pushNamed(context, '/add');
-          },
-          child: Icon(
-            Icons.search_sharp,
-            color: Colors.white,
-            size: 30,
+        persistentFooterButtons: [
+          Container(
+            color: Constants.colourPrimary,
+            child: Center(
+              widthFactor: double.infinity,
+              child: TextButton(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      'SEARCH',
+                      style: TextStyle(
+                          color: Constants.colourAccent,
+                          fontWeight: FontWeight.w900),
+                    ),
+                    SizedBox(
+                      width: 5,
+                    ),
+                    Icon(Icons.search_outlined, color: Constants.colourAccent),
+                  ],
+                ),
+                onPressed: () {
+                  Navigator.pushNamed(context, '/add');
+                },
+              ),
+            ),
           ),
-          elevation: 0,
-        ),
+        ],
+        // floatingActionButton: FloatingActionButton(
+        //   onPressed: () {
+        //     Navigator.pushNamed(context, '/add');
+        //   },
+        //   child: Icon(
+        //     Icons.search_sharp,
+        //     color: Colors.white,
+        //     size: 30,
+        //   ),
+        //   elevation: 0,
+        // ),
       ),
     );
   }
