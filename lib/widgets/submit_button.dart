@@ -14,11 +14,12 @@ class SubmitButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return RawMaterialButton(
+      fillColor: Constants.colourAccent,
       child: Text('GET'),
       textStyle: TextStyle(
-        color: Constants.colourAccent,
+        color: Constants.colourPrimary,
         fontWeight: FontWeight.w900,
-        fontSize: 20,
+        fontSize: 25,
       ),
       onPressed: () async {
         //var movieData =

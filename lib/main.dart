@@ -25,6 +25,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Provider.of<ChangeTheme>(context).colourPrimary,
         accentColor: Provider.of<ChangeTheme>(context).colourAccent,
+        fontFamily: 'Orbitron',
       ),
       initialRoute: '/',
       routes: {

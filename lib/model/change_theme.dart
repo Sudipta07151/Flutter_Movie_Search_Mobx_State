@@ -3,7 +3,7 @@ import '../constants/constant.dart';
 
 class ChangeTheme extends ChangeNotifier {
   bool value = false;
-  MaterialColor colourPrimary = Constants.colourAccent;
+  MaterialColor colourPrimary = Constants.colourPrimary;
   MaterialColor colourAccent = Constants.colourAccent;
 
   void changeColor(bool value) {

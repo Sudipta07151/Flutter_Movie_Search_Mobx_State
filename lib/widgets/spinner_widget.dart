@@ -7,9 +7,9 @@ class SpinnerWidget extends StatelessWidget {
     return Scaffold(
       body: Scaffold(
         body: Container(
-          color: Colors.white,
+          color: Colors.grey.shade800,
           child: SpinKitThreeBounce(
-            color: Colors.orange.shade700,
+            color: Colors.orange.shade800,
             size: 40,
           ),
         ),

@@ -42,12 +42,10 @@ class MoviesState {
               rating: movie['vote_average'].toString(),
               title: movie['title'].toString(),
               year: movie['release_date'].toString(),
-              image:
-                  // movie['backdrop_path'] != null
-                  //     ? ('https://image.tmdb.org/t/p/w500movie' +
-                  //         movie['backdrop_path'])
-                  //     :
-                  'https://images.unsplash.com/photo-1611890798517-07b0fcb4a811?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1171&q=80'),
+              image: movie['backdrop_path'] != null
+                  ? ('https://image.tmdb.org/t/p/original' +
+                      movie['backdrop_path'])
+                  : 'https://images.unsplash.com/photo-1611890798517-07b0fcb4a811?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1171&q=80'),
         )
         .toList();
   }

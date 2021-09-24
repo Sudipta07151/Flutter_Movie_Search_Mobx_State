@@ -10,13 +10,15 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Observer(
       builder: (_) => Scaffold(
+        backgroundColor: Colors.grey.shade900,
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
           elevation: 0,
           title: Text('FAVYOUR'),
           titleTextStyle: TextStyle(
             fontWeight: FontWeight.w900,
-            fontSize: 40,
+            fontFamily: 'Orbitron',
+            fontSize: 30,
           ),
           centerTitle: true,
           leading: SwitchWidget(
@@ -41,40 +43,60 @@ class HomeScreen extends StatelessWidget {
           child: movieState.movielist.length > 0
               ? Center(
                   child: ListView.builder(
+                    padding: EdgeInsets.all(15),
                     itemCount: movieState.movielist.length,
                     itemBuilder: (BuildContext context, int index) {
                       return Container(
-                        height: 80,
+                        padding: EdgeInsets.all(5),
                         child: Center(
-                          child: ListTile(
-                            // leading:
-                            //     //Text('${movieState.movielist[index].image}'),
-                            //     Image.network(
-                            //         '${movieState.movielist[index].image}'),
-                            trailing: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: <Widget>[
-                                Text('RATING'),
-                                Text(
-                                  '${movieState.movielist[index].rating}',
-                                  style: TextStyle(
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.w700),
+                          child: GestureDetector(
+                            onTap: () {
+                              print('TAPPED ${movieState.movielist[index]}');
+                            },
+                            child: ListTile(
+                              contentPadding: EdgeInsets.all(10),
+                              leading:
+                                  //Text('${movieState.movielist[index].image}'),
+                                  Image.network(
+                                      '${movieState.movielist[index].image}'),
+                              trailing: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  Text(
+                                    'RATING',
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                  Text(
+                                    '${movieState.movielist[index].rating}',
+                                    style: TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w800,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              title: Text(
+                                '${movieState.movielist[index].title}'
+                                    .toString(),
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w900,
+                                  color: Colors.purple.shade50,
                                 ),
-                              ],
+                              ),
+                              subtitle: Text(
+                                'RELEASED: ${movieState.movielist[index].year}',
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w700,
+                                  color: Colors.purple.shade100,
+                                ),
+                              ),
+                              tileColor: Colors.grey.shade700,
                             ),
-
-                            title: Text(
-                              '${movieState.movielist[index].title}'.toString(),
-                              style: TextStyle(
-                                  fontSize: 20, fontWeight: FontWeight.w900),
-                            ),
-                            subtitle: Text(
-                              'RELEASED: ${movieState.movielist[index].year}',
-                              style: TextStyle(
-                                  fontSize: 12, fontWeight: FontWeight.w700),
-                            ),
-                            tileColor: Colors.cyan.shade300,
                           ),
                         ),
                       );
@@ -82,7 +104,14 @@ class HomeScreen extends StatelessWidget {
                   ),
                 )
               : Center(
-                  child: Text('NOTHING TO SHOW'),
+                  child: Text(
+                    'NOTHING TO SHOW',
+                    style: TextStyle(
+                      fontSize: 30,
+                      letterSpacing: 2,
+                      color: Colors.white,
+                    ),
+                  ),
                 ),
         ),
         floatingActionButton: FloatingActionButton(
