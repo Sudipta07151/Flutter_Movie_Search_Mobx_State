@@ -3,9 +3,12 @@ class Movie {
   final String year;
   final String rating;
   final String image;
-  Movie(
-      {required this.rating,
-      required this.title,
-      required this.year,
-      required this.image});
+  final String details;
+  Movie({
+    required this.rating,
+    required this.title,
+    required this.year,
+    required this.image,
+    required this.details,
+  });
 }

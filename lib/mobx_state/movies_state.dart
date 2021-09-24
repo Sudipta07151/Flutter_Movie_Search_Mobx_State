@@ -42,6 +42,7 @@ class MoviesState {
               rating: movie['vote_average'].toString(),
               title: movie['title'].toString(),
               year: movie['release_date'].toString(),
+              details: movie['overview'].toString(),
               image: movie['backdrop_path'] != null
                   ? ('https://image.tmdb.org/t/p/original' +
                       movie['backdrop_path'])

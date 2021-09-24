@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../widgets/switch_widget.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import '../mobx_state/movies_state.dart';
+import '../screens/details_page.dart';
 
 class HomeScreen extends StatelessWidget {
   final MoviesState movieState;
@@ -51,6 +52,13 @@ class HomeScreen extends StatelessWidget {
                         child: Center(
                           child: GestureDetector(
                             onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (BuildContext context) =>
+                                          DetailsPage(
+                                              movie: movieState
+                                                  .movielist[index])));
                               print('TAPPED ${movieState.movielist[index]}');
                             },
                             child: ListTile(
