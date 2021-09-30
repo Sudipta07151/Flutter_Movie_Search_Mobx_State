@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import '../constants/constant.dart';
-import '../blocs/login_form_bloc.dart';
+import '../mobx_state/login_form_state.dart';
+import 'package:mobx/mobx.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 
 class LoginScreen extends StatelessWidget {
+  final loginState = LoginFormState();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,7 +25,9 @@ class LoginScreen extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.all(30.0),
-              child: EmailWidget(),
+              child: EmailWidget(
+                state: loginState,
+              ),
             ),
             Padding(
               padding: const EdgeInsets.all(30.0),
@@ -40,40 +45,42 @@ class LoginScreen extends StatelessWidget {
 }
 
 class EmailWidget extends StatelessWidget {
+  final LoginFormState state;
+  EmailWidget({required this.state});
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder(
-        stream: loginBloc.email,
-        builder: (context, snapshot) {
-          return TextField(
-            onChanged: loginBloc.changeEmail,
-            keyboardType: TextInputType.emailAddress,
-            decoration: InputDecoration(
-              labelText: 'Email',
-              hintText: 'xyz@gmail.com',
-              errorText: snapshot.error.toString(),
-            ),
-          );
-        });
+    bool check = false;
+    reaction((_) => state.getemail, (_) {
+      check = state.checkemail();
+    });
+    return Observer(
+      builder: (_) => TextField(
+        onChanged: (value) {
+          print(value);
+          state.setteremail();
+        },
+        keyboardType: TextInputType.emailAddress,
+        decoration: InputDecoration(
+          labelText: 'Email',
+          hintText: 'xyz@gmail.com',
+          errorText: check == true ? 'OK' : 'ENTER VALID EMAIL',
+        ),
+      ),
+    );
   }
 }
 
 class PasswordWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder(
-      stream: loginBloc.password,
-      builder: (context, snapshot) {
-        return TextField(
-          obscureText: true,
-          onChanged: loginBloc.changePassword,
-          decoration: InputDecoration(
-            labelText: 'Password',
-            hintText: 'minimum 6 characters',
-            errorText: snapshot.error.toString(),
-          ),
-        );
-      },
+    return TextField(
+      obscureText: true,
+      onChanged: (value) {},
+      decoration: InputDecoration(
+        labelText: 'Password',
+        hintText: 'minimum 6 characters',
+        errorText: '',
+      ),
     );
   }
 }

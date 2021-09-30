@@ -66,8 +66,11 @@ class HomeScreen extends StatelessWidget {
                               contentPadding: EdgeInsets.all(10),
                               leading:
                                   //Text('${movieState.movielist[index].image}'),
-                                  Image.network(
-                                      '${movieState.movielist[index].image}'),
+                                  Hero(
+                                tag: '${movieState.movielist[index].image}',
+                                child: Image.network(
+                                    '${movieState.movielist[index].image}'),
+                              ),
                               trailing: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: <Widget>[
@@ -151,17 +154,6 @@ class HomeScreen extends StatelessWidget {
             ),
           ),
         ],
-        // floatingActionButton: FloatingActionButton(
-        //   onPressed: () {
-        //     Navigator.pushNamed(context, '/add');
-        //   },
-        //   child: Icon(
-        //     Icons.search_sharp,
-        //     color: Colors.white,
-        //     size: 30,
-        //   ),
-        //   elevation: 0,
-        // ),
       ),
     );
   }
