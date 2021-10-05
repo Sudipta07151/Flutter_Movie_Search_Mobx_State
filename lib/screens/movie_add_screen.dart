@@ -14,6 +14,14 @@ class AddScreen extends StatelessWidget {
       body: Container(
         child: Column(
           children: <Widget>[
+            CheckboxListTile(
+              value: true,
+              title: Text(
+                'MOVIES',
+                style: TextStyle(color: Colors.white),
+              ),
+              onChanged: (bool? value) {},
+            ),
             Padding(
               padding: const EdgeInsets.fromLTRB(20, 60, 20, 10),
               child: TextField(

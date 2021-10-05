@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
 import '../constants/constant.dart';
-import '../mobx_state/login_form_state.dart';
+//import '../mobx_state/login_form_state.dart';
 import 'package:mobx/mobx.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import '../mobx_state/login.dart';
 
 class LoginScreen extends StatelessWidget {
-  final loginState = LoginFormState();
+  //final loginState = LoginFormState();
+  final login = Login();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Padding(
-        padding: const EdgeInsets.fromLTRB(0, 150, 0, 0),
+        padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
         child: Column(
           children: <Widget>[
             Text(
@@ -26,16 +28,30 @@ class LoginScreen extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(30.0),
               child: EmailWidget(
-                state: loginState,
+                state: login,
               ),
             ),
             Padding(
               padding: const EdgeInsets.all(30.0),
-              child: PasswordWidget(),
+              child: PasswordWidget(
+                state: login,
+              ),
             ),
-            TextButton(
-              child: Text('LOGIN'),
-              onPressed: () {},
+            Observer(
+              builder: (_) => TextButton(
+                child: Text('LOGIN'),
+                onPressed: () {
+                  login.loginStatus();
+                },
+              ),
+            ),
+            Observer(
+              builder: (_) => Text(
+                login.loginStatsVal ? 'OK DONE' : 'WRONG, TRY AGAIN',
+                style: TextStyle(
+                  color: login.loginStatsVal ? Colors.green : Colors.red,
+                ),
+              ),
             ),
           ],
         ),
@@ -45,25 +61,23 @@ class LoginScreen extends StatelessWidget {
 }
 
 class EmailWidget extends StatelessWidget {
-  final LoginFormState state;
+  final Login state;
   EmailWidget({required this.state});
   @override
   Widget build(BuildContext context) {
-    bool check = false;
-    reaction((_) => state.getemail, (_) {
-      check = state.checkemail();
+    reaction((p0) => state.email, (p0) {
+      state.checkemail();
     });
     return Observer(
       builder: (_) => TextField(
         onChanged: (value) {
-          print(value);
-          state.setteremail();
+          state.setEmail(value);
         },
         keyboardType: TextInputType.emailAddress,
         decoration: InputDecoration(
           labelText: 'Email',
           hintText: 'xyz@gmail.com',
-          errorText: check == true ? 'OK' : 'ENTER VALID EMAIL',
+          errorText: state.showEmailMsg,
         ),
       ),
     );
@@ -71,15 +85,24 @@ class EmailWidget extends StatelessWidget {
 }
 
 class PasswordWidget extends StatelessWidget {
+  final Login state;
+  PasswordWidget({required this.state});
   @override
   Widget build(BuildContext context) {
-    return TextField(
-      obscureText: true,
-      onChanged: (value) {},
-      decoration: InputDecoration(
-        labelText: 'Password',
-        hintText: 'minimum 6 characters',
-        errorText: '',
+    reaction((p0) => state.password, (p0) {
+      state.checkpassword();
+    });
+    return Observer(
+      builder: (_) => TextField(
+        obscureText: true,
+        onChanged: (value) {
+          state.setPassword(value);
+        },
+        decoration: InputDecoration(
+          labelText: 'Password',
+          hintText: 'minimum 6 characters',
+          errorText: state.showPasswordMsg,
+        ),
       ),
     );
   }
